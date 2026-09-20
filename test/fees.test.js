@@ -137,3 +137,61 @@ test("shipping revenue can cover the complete target and produce a zero list pri
   assert.equal(result.listPrice, 0);
   assert.ok(result.profit >= 2);
 });
+
+test("reverse results match a brute-force cent oracle across representative fee combinations", () => {
+  const scenarios = [
+    {
+      location: LOCATIONS.GB,
+      productCost: 7.35,
+      shippingCharged: 0,
+      shippingCost: 2.8,
+      offsiteRate: 0,
+      feeTaxRate: 0.2
+    },
+    {
+      location: LOCATIONS.GB,
+      productCost: 12.49,
+      shippingCharged: 4.25,
+      shippingCost: 3.95,
+      offsiteRate: 0.15,
+      feeTaxRate: 0.2
+    },
+    {
+      location: LOCATIONS.US,
+      productCost: 18.75,
+      shippingCharged: 6.5,
+      shippingCost: 5.25,
+      offsiteRate: 0.12,
+      feeTaxRate: 0
+    },
+    {
+      location: LOCATIONS.US,
+      productCost: 850,
+      shippingCharged: 25,
+      shippingCost: 20,
+      offsiteRate: 0.15,
+      offsiteCap: 100,
+      feeTaxRate: 0
+    }
+  ];
+
+  for (const scenario of scenarios) {
+    for (const desiredProfit of [0, 0.01, 1, 9.99, 25, 125]) {
+      const input = { ...scenario, desiredProfit };
+      const actual = findMinimumListPrice(input);
+      let expected;
+
+      for (let cents = 0; cents <= Math.round(actual.listPrice * 100); cents += 1) {
+        const candidate = calculateBreakdown({ ...input, listPrice: cents / 100 });
+        if (candidate.profit >= desiredProfit) {
+          expected = candidate;
+          break;
+        }
+      }
+
+      assert.ok(expected, `expected a brute-force result for ${JSON.stringify(input)}`);
+      assert.equal(actual.listPrice, expected.listPrice, `minimum price for ${JSON.stringify(input)}`);
+      assert.deepEqual(actual, expected);
+    }
+  }
+});

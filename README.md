@@ -12,6 +12,19 @@ python3 -m http.server 4173 -d dist
 
 Then open <http://localhost:4173>.
 
+## Deploy to Cloudflare Pages
+
+Create a Pages project from this repository with:
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Environment variable: `SITE_URL=https://your-production-domain.example/`
+
+`SITE_URL` rewrites the canonical URL, Open Graph URL, structured-data URL,
+robots sitemap URL and sitemap entry during the build. If omitted, the current
+GitHub Pages URL is retained. The generated output also includes Cloudflare
+Pages response headers from `_headers`.
+
 ## Fee assumptions
 
 Rates were checked on 20 September 2026 against Etsy's official documentation:
