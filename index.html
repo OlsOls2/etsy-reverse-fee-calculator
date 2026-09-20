@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Reverse Fee Calculator — Profit to List Price</title>
+    <meta name="description" content="Start with the profit you want. Calculate the minimum Etsy list price after product costs, shipping, Etsy fees and Offsite Ads.">
+    <link rel="canonical" href="https://olsols2.github.io/etsy-reverse-fee-calculator/">
+    <meta property="og:title" content="Etsy Reverse Fee Calculator">
+    <meta property="og:description" content="Desired profit in. Minimum list price out — with a clear Etsy fee breakdown.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://olsols2.github.io/etsy-reverse-fee-calculator/">
+    <meta name="theme-color" content="#173f35">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./src/app.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Etsy Reverse Fee Calculator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "url": "https://olsols2.github.io/etsy-reverse-fee-calculator/",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+        "description": "Calculate a minimum Etsy list price from desired profit, costs, shipping and seller fees."
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator">Skip to calculator</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ReversePrice home">
+        <span class="brand-mark" aria-hidden="true">↗</span>
+        <span>ReversePrice</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#fees">Fee assumptions</a>
+        <a class="nav-pill" href="#calculator">Calculate price</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Built for Etsy sellers who price for profit</p>
+          <h1 id="hero-title">Your profit target.<br><em>Your minimum price.</em></h1>
+          <p class="hero-lede">Most fee calculators start with a price. This one starts with what you actually need to earn — then works backwards through every fee.</p>
+          <div class="trust-row" aria-label="Product highlights">
+            <span>✓ No sign-up</span>
+            <span>✓ Runs in your browser</span>
+            <span>✓ Clear fee breakdown</span>
+          </div>
+        </div>
+        <aside class="hero-note" aria-label="How reverse pricing works">
+          <span class="note-label">Instead of</span>
+          <s>“If I charge £24, what do I keep?”</s>
+          <span class="note-label accent">Ask this</span>
+          <strong>“What must I charge to keep £10?”</strong>
+          <div class="scribble" aria-hidden="true"></div>
+        </aside>
+      </section>
+
+      <section class="calculator-shell" id="calculator" aria-labelledby="calculator-heading">
+        <div class="calculator-intro">
+          <p class="step-kicker">Free single-listing calculator</p>
+          <h2 id="calculator-heading">Build your minimum price</h2>
+          <p>Enter one order. We include fees on both the item and the shipping you charge.</p>
+        </div>
+
+        <div class="calculator-grid">
+          <form id="calculator-form" class="input-panel">
+            <div class="field full-field">
+              <label for="location">Where is your payment bank account?</label>
+              <select id="location" name="location">
+                <option value="GB">United Kingdom (GBP)</option>
+                <option value="US">United States (USD)</option>
+              </select>
+              <small>Sets Etsy Payments and regulatory fee rates.</small>
+            </div>
+
+            <fieldset class="field-group profit-group">
+              <legend>1. What do you want to keep?</legend>
+              <label class="field full-field highlight-field" for="desired-profit">
+                <span>Desired profit</span>
+                <span class="money-input"><b data-currency-symbol>£</b><input id="desired-profit" inputmode="decimal" type="number" min="0" step="0.01" value="10" required></span>
+              </label>
+            </fieldset>
+
+            <fieldset class="field-group two-column">
+              <legend>2. What does the order cost you?</legend>
+              <label class="field" for="product-cost">
+                <span>Materials / COGS</span>
+                <span class="money-input"><b data-currency-symbol>£</b><input id="product-cost" inputmode="decimal" type="number" min="0" step="0.01" value="6"></span>
+              </label>
+              <label class="field" for="shipping-cost">
+                <span>Actual shipping cost</span>
+                <span class="money-input"><b data-currency-symbol>£</b><input id="shipping-cost" inputmode="decimal" type="number" min="0" step="0.01" value="3.20"></span>
+              </label>
+              <label class="field full-field" for="shipping-charged">
+                <span>Shipping charged to buyer</span>
+                <span class="money-input"><b data-currency-symbol>£</b><input id="shipping-charged" inputmode="decimal" type="number" min="0" step="0.01" value="3.50"></span>
+                <small>Etsy charges percentage fees on shipping revenue too.</small>
+              </label>
+            </fieldset>
+
+            <fieldset class="field-group">
+              <legend>3. Is this an Offsite Ads order?</legend>
+              <div class="segmented-control">
+                <label><input type="radio" name="offsite-rate" value="0" checked><span>Off</span></label>
+                <label><input type="radio" name="offsite-rate" value="0.15"><span>15%<small>under $10k</small></span></label>
+                <label><input type="radio" name="offsite-rate" value="0.12"><span>12%<small>$10k+ shop</small></span></label>
+              </div>
+            </fieldset>
+
+            <label class="switch-row" id="fee-tax-row" for="fee-tax">
+              <span><strong>Include 20% VAT on Etsy seller fees</strong><small>Turn off only if you reclaim this VAT.</small></span>
+              <span class="switch"><input id="fee-tax" type="checkbox" checked><i></i></span>
+            </label>
+
+            <details class="advanced">
+              <summary>Advanced fee assumptions</summary>
+              <p id="assumption-note"></p>
+              <div class="two-column">
+                <label class="field" for="listing-fee">
+                  <span>Listing fee</span>
+                  <span class="money-input"><b data-currency-symbol>£</b><input id="listing-fee" type="number" min="0" step="0.01" value="0.15"></span>
+                </label>
+                <label class="field" for="offsite-cap">
+                  <span>Offsite Ads cap</span>
+                  <span class="money-input"><b data-currency-symbol>£</b><input id="offsite-cap" type="number" min="0" step="0.01" value="75"></span>
+                </label>
+              </div>
+            </details>
+          </form>
+
+          <section class="result-card" id="result-card" aria-live="polite" aria-labelledby="result-title">
+            <div class="result-heading">
+              <p>Your minimum item price</p>
+              <h3 id="result-title" data-output="listPrice">£0.00</h3>
+              <span>Charge shipping separately as entered</span>
+            </div>
+            <div class="result-proof">
+              <div><span>Buyer pays</span><strong data-output="orderTotal">£0.00</strong></div>
+              <div><span>You keep</span><strong data-output="profit">£0.00</strong></div>
+            </div>
+            <div class="breakdown">
+              <h4>Where the order total goes</h4>
+              <dl>
+                <div><dt>Listing fee</dt><dd data-output="listingFee">£0.00</dd></div>
+                <div><dt>Transaction fee · 6.5%</dt><dd data-output="transactionFee">£0.00</dd></div>
+                <div><dt>Payment processing</dt><dd data-output="paymentProcessingFee">£0.00</dd></div>
+                <div id="regulatory-breakdown"><dt>Regulatory fee · 0.48%</dt><dd data-output="regulatoryFee">£0.00</dd></div>
+                <div id="offsite-breakdown" hidden><dt>Offsite Ads</dt><dd data-output="offsiteAdsFee">£0.00</dd></div>
+                <div id="fee-tax-breakdown"><dt>VAT on Etsy fees</dt><dd data-output="feeTax">£0.00</dd></div>
+                <div class="subtotal"><dt>Total Etsy fees</dt><dd data-output="totalFees">£0.00</dd></div>
+                <div><dt>Materials / COGS</dt><dd data-output="productCost">£0.00</dd></div>
+                <div><dt>Actual shipping</dt><dd data-output="shippingCost">£0.00</dd></div>
+                <div class="profit-line"><dt>Your target profit</dt><dd data-output="profit">£0.00</dd></div>
+              </dl>
+            </div>
+            <p id="calculation-error" class="error" hidden></p>
+            <p class="rounding-note">Rounded up to the nearest penny so your target is still met.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="explanation" id="how-it-works">
+        <div>
+          <p class="step-kicker">The reverse-price difference</p>
+          <h2>Profit is the starting line, not the surprise at the end.</h2>
+        </div>
+        <ol>
+          <li><span>01</span><div><strong>Set your target</strong><p>Decide what this order needs to earn after costs.</p></div></li>
+          <li><span>02</span><div><strong>Add real costs</strong><p>Separate what buyers pay for shipping from what shipping costs you.</p></div></li>
+          <li><span>03</span><div><strong>Price backwards</strong><p>We test penny-accurate prices until every selected fee is covered.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="fees-section" id="fees">
+        <div class="fees-copy">
+          <p class="step-kicker">Transparent assumptions</p>
+          <h2>Current rates, visible maths.</h2>
+          <p>Fee data last checked <time id="fee-date"></time>. The calculator uses your bank location, not your buyer’s location.</p>
+          <p class="disclaimer">Estimates are for pricing decisions, not tax advice. Etsy can apply tax, currency conversion, deposit or service fees that depend on the order and account.</p>
+        </div>
+        <div class="fee-table-wrap">
+          <table>
+            <caption>Rates used for <span id="location-name">United Kingdom</span></caption>
+            <thead><tr><th>Fee</th><th>UK preset</th><th>US preset</th></tr></thead>
+            <tbody>
+              <tr><td>Transaction</td><td>6.5%</td><td>6.5%</td></tr>
+              <tr><td>Etsy Payments</td><td>4% + £0.20</td><td>3% + $0.25</td></tr>
+              <tr><td>Regulatory</td><td>0.48%</td><td>—</td></tr>
+              <tr><td>Offsite Ads</td><td>15% or 12%</td><td>15% or 12%</td></tr>
+              <tr><td>Listing</td><td>$0.20 converted</td><td>$0.20</td></tr>
+            </tbody>
+          </table>
+          <div class="source-links">
+            <a href="https://www.etsy.com/legal/fees/" rel="noopener">Etsy Fees Policy ↗</a>
+            <a href="https://www.etsy.com/legal/etsy-payments" rel="noopener">Payments rates ↗</a>
+            <a href="https://help.etsy.com/hc/en-us/articles/360000338367" rel="noopener">Offsite Ads ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="pro-card" aria-labelledby="pro-title">
+        <div>
+          <span class="pro-badge">Coming next</span>
+          <h2 id="pro-title">Price a whole shop, not one listing.</h2>
+          <p>Upload a CSV of SKUs and get required list prices plus a margin audit — without sending your product data to a server.</p>
+        </div>
+        <button type="button" disabled aria-describedby="pro-note">CSV batch pricing · Pro</button>
+        <small id="pro-note">In development · planned as a low-cost one-off export</small>
+      </section>
+
+      <section class="faq">
+        <p class="step-kicker">Good to know</p>
+        <h2>Questions sellers ask</h2>
+        <details><summary>Why do you charge fees on shipping?</summary><p>Etsy’s transaction, payment processing, regulatory and eligible Offsite Ads fees use an order total that includes the shipping amount charged to the buyer.</p></details>
+        <details><summary>Should I select 15% or 12% for Offsite Ads?</summary><p>Use 15% if your shop has always made less than $10,000 USD in any consecutive 365-day period. Once a shop reaches that threshold, Etsy uses 12% and participation becomes mandatory.</p></details>
+        <details><summary>Why is the UK listing fee editable?</summary><p>Etsy publishes its listing fee as $0.20 USD and converts it to your payment account currency. The exact GBP amount can move with exchange rates, so the preset is an estimate you can replace with the amount on your payment account.</p></details>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↗</span><span>ReversePrice</span></a>
+      <p>Independent calculator. Not affiliated with or endorsed by Etsy, Inc.</p>
+      <a href="https://github.com/OlsOls2/etsy-reverse-fee-calculator">View source</a>
+    </footer>
+  </body>
+</html>

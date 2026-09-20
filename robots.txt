@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://olsols2.github.io/etsy-reverse-fee-calculator/sitemap.xml
