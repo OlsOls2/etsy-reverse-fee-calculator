@@ -157,8 +157,18 @@ td:first-child { font-weight: 760; }
 .pro-card h2 { margin-top: .8rem; max-width: 660px; }
 .pro-card p { max-width: 680px; color: #ffe7dc; line-height: 1.6; }
 .pro-badge { padding: .4rem .65rem; border: 1px solid rgba(255,255,255,.45); border-radius: 999px; font-size: .68rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
-.pro-card button { padding: 1rem 1.25rem; color: var(--ink); border: 0; border-radius: 999px; background: white; font-weight: 850; cursor: not-allowed; }
+.pro-card button { padding: 1rem 1.25rem; color: var(--ink); border: 0; border-radius: 999px; background: white; font-weight: 850; cursor: pointer; }
+.pro-card button:disabled { cursor: wait; opacity: .72; }
 .pro-card small { grid-column: 2; margin-top: .5rem; color: #ffe7dc; text-align: center; }
+.pro-workspace { grid-column: 1 / -1; margin-top: 2rem; padding: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 1rem; align-items: center; color: var(--ink); border-radius: 16px; background: var(--paper); }
+.pro-workspace[hidden] { display: none; }
+.pro-workspace h3 { margin: 0 0 .35rem; }
+.pro-workspace p { margin: 0; color: var(--ink-soft); font-size: .78rem; }
+.pro-workspace code { font-size: .72rem; }
+.csv-upload { padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--mint-light); font-size: .78rem; font-weight: 850; cursor: pointer; }
+.csv-upload input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+.pro-workspace #csv-download { color: white; background: var(--ink); }
+.pro-workspace #csv-status { grid-column: 1 / -1; }
 .faq { max-width: 800px; padding: 0 0 100px; }
 .faq h2 { margin-bottom: 2rem; }
 .faq details { border-top: 1px solid var(--line); }
@@ -179,6 +189,7 @@ footer a:last-child { font-weight: 800; }
   .pro-card { grid-template-columns: 1fr; gap: 1rem; }
   .pro-card button { justify-self: start; }
   .pro-card small { grid-column: 1; text-align: left; }
+  .pro-workspace { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {

@@ -21,8 +21,11 @@
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Any",
         "url": "https://etsy-reverse-fee.online/",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
-        "description": "Calculate a minimum Etsy list price from desired profit, costs, shipping and seller fees."
+        "offers": [
+          { "@type": "Offer", "name": "Single-listing calculator", "price": "0", "priceCurrency": "GBP" },
+          { "@type": "Offer", "name": "CSV Pro lifetime unlock", "price": "4", "priceCurrency": "GBP" }
+        ],
+        "description": "Calculate a minimum Etsy list price from desired profit, costs, shipping and seller fees, with an optional local CSV batch-pricing tool."
       }
     </script>
   </head>
@@ -204,14 +207,23 @@
         </div>
       </section>
 
-      <section class="pro-card" aria-labelledby="pro-title">
+      <section class="pro-card" id="csv-pro" aria-labelledby="pro-title">
         <div>
-          <span class="pro-badge">Coming next</span>
+          <span class="pro-badge">CSV Pro · one-time unlock</span>
           <h2 id="pro-title">Price a whole shop, not one listing.</h2>
-          <p>Upload a CSV of SKUs and get required list prices plus a margin audit — without sending your product data to a server.</p>
+          <p>Upload a CSV of SKUs and get required list prices plus a margin audit. Your file stays in this browser; Stripe handles the £4 payment.</p>
         </div>
-        <button type="button" disabled aria-describedby="pro-note">CSV batch pricing · Pro</button>
-        <small id="pro-note">In development · planned as a low-cost one-off export</small>
+        <button id="pro-checkout" type="button" aria-describedby="pro-note">Unlock CSV Pro · £4</button>
+        <small id="pro-note" role="status">Secure one-time payment · no account</small>
+        <div id="pro-workspace" class="pro-workspace" hidden>
+          <div>
+            <h3>Batch price your listings</h3>
+            <p>Required columns: <code>sku, desired_profit, product_cost, shipping_charged, shipping_cost</code>. Optional: <code>location, current_price, offsite_rate, fee_tax_rate, listing_fee, offsite_cap</code>.</p>
+          </div>
+          <label class="csv-upload">Choose CSV file<input id="csv-file" type="file" accept=".csv,text/csv"></label>
+          <button id="csv-download" type="button" disabled>Download priced CSV</button>
+          <p id="csv-status" role="status">Choose a CSV to calculate every row locally.</p>
+        </div>
       </section>
 
       <section class="faq">
@@ -220,6 +232,7 @@
         <details><summary>Why do you charge fees on shipping?</summary><p>Etsy’s transaction, payment processing, regulatory and eligible Offsite Ads fees use an order total that includes the shipping amount charged to the buyer.</p></details>
         <details><summary>Should I select 15% or 12% for Offsite Ads?</summary><p>Use 15% if your shop has always made less than $10,000 USD in any consecutive 365-day period. Once a shop reaches that threshold, Etsy uses 12% and participation becomes mandatory.</p></details>
         <details><summary>Why is the UK listing fee editable?</summary><p>Etsy publishes its listing fee as $0.20 USD and converts it to your payment account currency. The exact GBP amount can move with exchange rates, so the preset is an estimate you can replace with the amount on your payment account.</p></details>
+        <details><summary>Does CSV Pro upload my shop data?</summary><p>No. CSV parsing, reverse pricing and the margin audit run locally in your browser. Only the Stripe Checkout session is sent to the billing service.</p></details>
       </section>
     </main>
 

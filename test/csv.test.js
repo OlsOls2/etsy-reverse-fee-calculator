@@ -1,0 +1,22 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { priceCsv, resultsCsv } from "../src/csv.js";
+
+test("prices a UK listing batch and audits the current price", () => {
+  const [row] = priceCsv("sku,desired_profit,product_cost,shipping_charged,shipping_cost,current_price\nMUG-1,10,6,3.5,3.2,10");
+  assert.equal(row.sku, "MUG-1");
+  assert.equal(row.location, "GB");
+  assert.ok(row.minimum_list_price > 10);
+  assert.equal(row.audit, "raise price");
+});
+
+test("supports quoted SKUs and exports priced results", () => {
+  const results = priceCsv('sku,location,desired_profit,product_cost,shipping_charged,shipping_cost\n"MUG, BLUE",US,8,4,5,4');
+  const exported = resultsCsv(results);
+  assert.match(exported, /"MUG, BLUE"/);
+  assert.match(exported, /minimum_list_price/);
+});
+
+test("rejects missing required columns", () => {
+  assert.throws(() => priceCsv("sku,desired_profit\nA,10"), /Missing required column/);
+});

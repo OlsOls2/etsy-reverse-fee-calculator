@@ -1,6 +1,6 @@
 # Etsy Reverse Fee Calculator
 
-A client-side calculator that works backwards from desired profit to the minimum Etsy list price. It includes product costs, shipping charged versus shipping paid, Offsite Ads and a visible fee breakdown.
+A calculator that works backwards from desired profit to the minimum Etsy list price. It includes product costs, shipping charged versus shipping paid, Offsite Ads and a visible fee breakdown. The £4 CSV Pro unlock batch-prices local files after server-side Stripe entitlement verification.
 
 ## Run locally
 
@@ -41,6 +41,10 @@ when intentionally targeting a different production domain. `SITE_URL` rewrites
 the canonical URL, Open Graph URL, structured-data URL, robots sitemap URL and
 sitemap entry. If omitted, the canonical custom domain above is used.
 
+The build defaults to the production billing service. Set
+`BILLING_API_URL=https://another-service.example` only for an intentional
+alternate deployment.
+
 ## Fee assumptions
 
 Rates were checked on 20 September 2026 against Etsy's official documentation:
@@ -65,9 +69,9 @@ Official sources:
 
 Each fee line is rounded to the nearest penny/cent. Because several fee lines can round up on the same cent, exact profit is not perfectly monotonic. The reverse calculator binary-searches a safe optimistic bound, then checks exact cent prices in order and returns the first list price whose resulting profit meets or exceeds the target. This also handles the Offsite Ads cap without relying on an inaccurate single linear formula.
 
-## Scope
+## Payments and CSV privacy
 
-v1 is deliberately single-listing only. CSV batch pricing and shop margin audits are represented as a disabled Pro preview.
+The static frontend sends only Checkout and entitlement requests to the billing service. CSV content is parsed and priced locally in the browser and is never uploaded. The production billing service verifies the fixed Mizzen Studios Stripe account before creating or retrieving a session.
 
 ## License
 
