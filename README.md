@@ -12,18 +12,33 @@ python3 -m http.server 4173 -d dist
 
 Then open <http://localhost:4173>.
 
-## Deploy to Cloudflare Pages
+## Deploy to Firebase Hosting
 
-Create a Pages project from this repository with:
+Production hosting:
 
-- Build command: `npm run build`
+- Firebase/GCP project ID: `etsy-reverse-fee`
+- Hosting URL: <https://etsy-reverse-fee.web.app/>
 - Build output directory: `dist`
-- Environment variable: `SITE_URL=https://your-production-domain.example/`
 
-`SITE_URL` rewrites the canonical URL, Open Graph URL, structured-data URL,
-robots sitemap URL and sitemap entry during the build. If omitted, the current
-GitHub Pages URL is retained. The generated output also includes Cloudflare
-Pages response headers from `_headers`.
+Deploy with an interactive Firebase login:
+
+```bash
+firebase login
+npm ci
+npm test
+npm run build
+firebase deploy --only hosting --project etsy-reverse-fee
+```
+
+The currently authenticated OpenClaw host can deploy without another login.
+For CI, use a Google service account with Firebase Hosting deployment access and
+provide its credentials through the CI platform's protected secret mechanism;
+no service-account key is required for normal local deployment.
+
+Set `SITE_URL=https://your-production-domain.example/` while building if a
+custom domain is added. `SITE_URL` rewrites the canonical URL, Open Graph URL,
+structured-data URL, robots sitemap URL and sitemap entry. If omitted, the
+Firebase Hosting URL above is used.
 
 ## Fee assumptions
 
