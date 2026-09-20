@@ -17,7 +17,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--cream); }
+body { margin: 0; min-width: 320px; overflow-x: clip; background: var(--cream); }
 button, input, select { font: inherit; }
 a { color: inherit; }
 .skip-link { position: fixed; z-index: 99; left: 1rem; top: -5rem; padding: .7rem 1rem; background: var(--ink); color: white; }
@@ -48,6 +48,7 @@ main { overflow: hidden; }
   gap: 7vw;
   align-items: center;
 }
+.hero-copy { min-width: 0; }
 .eyebrow, .step-kicker { margin: 0 0 1rem; color: var(--orange-dark); font-size: .76rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .eyebrow { display: flex; align-items: center; gap: .55rem; }
 .eyebrow span { width: 28px; height: 2px; background: var(--orange); }
@@ -181,9 +182,14 @@ footer a:last-child { font-weight: 800; }
 }
 
 @media (max-width: 600px) {
-  .site-header { width: min(100% - 28px, 1180px); }
+  .site-header { width: min(100% - 28px, 1180px); min-height: 72px; gap: .75rem; }
+  .site-header .brand { gap: .5rem; font-size: .94rem; }
+  .site-header .brand-mark { width: 32px; height: 32px; }
+  .nav-pill { padding: .64rem .8rem; white-space: nowrap; font-size: .8rem; }
   .hero { width: min(100% - 28px, 1180px); padding: 48px 0 56px; }
-  h1 { font-size: clamp(3.1rem, 16vw, 5rem); }
+  h1 { font-size: clamp(2.8rem, 13vw, 4rem); letter-spacing: -.065em; }
+  .eyebrow { align-items: flex-start; font-size: .68rem; line-height: 1.45; }
+  .eyebrow span { flex: 0 0 28px; margin-top: .45rem; }
   .hero-lede { font-size: 1rem; }
   .calculator-shell { padding: 54px 14px; }
   .calculator-grid { gap: 14px; }
@@ -192,7 +198,7 @@ footer a:last-child { font-weight: 800; }
   .two-column { grid-template-columns: 1fr; }
   .result-card { border-radius: 18px; }
   .result-heading, .breakdown { padding-left: 22px; padding-right: 22px; }
-  .result-heading h3 { font-size: 4rem; }
+  .result-heading h3 { font-size: clamp(3rem, 15vw, 4rem); }
   .rounding-note { padding-left: 22px; padding-right: 22px; }
   .explanation, .fees-section, .faq { width: min(100% - 28px, 1180px); }
   .explanation { padding: 72px 0; }
