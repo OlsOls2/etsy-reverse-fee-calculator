@@ -1,7 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 
 const output = new URL("../dist/", import.meta.url);
-const defaultSiteUrl = "https://etsy-reverse-fee.web.app/";
+const defaultSiteUrl = "https://etsy-reverse-fee.online/";
 const siteUrl = (process.env.SITE_URL ?? defaultSiteUrl).replace(/\/?$/, "/");
 
 if (!URL.canParse(siteUrl) || !siteUrl.startsWith("https://")) {

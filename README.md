@@ -17,7 +17,8 @@ Then open <http://localhost:4173>.
 Production hosting:
 
 - Firebase/GCP project ID: `etsy-reverse-fee`
-- Hosting URL: <https://etsy-reverse-fee.web.app/>
+- Canonical URL: <https://etsy-reverse-fee.online/>
+- Firebase fallback URL: <https://etsy-reverse-fee.web.app/>
 - Build output directory: `dist`
 
 Deploy with an interactive Firebase login:
@@ -35,10 +36,10 @@ For CI, use a Google service account with Firebase Hosting deployment access and
 provide its credentials through the CI platform's protected secret mechanism;
 no service-account key is required for normal local deployment.
 
-Set `SITE_URL=https://your-production-domain.example/` while building if a
-custom domain is added. `SITE_URL` rewrites the canonical URL, Open Graph URL,
-structured-data URL, robots sitemap URL and sitemap entry. If omitted, the
-Firebase Hosting URL above is used.
+Set `SITE_URL=https://another-production-domain.example/` while building only
+when intentionally targeting a different production domain. `SITE_URL` rewrites
+the canonical URL, Open Graph URL, structured-data URL, robots sitemap URL and
+sitemap entry. If omitted, the canonical custom domain above is used.
 
 ## Fee assumptions
 

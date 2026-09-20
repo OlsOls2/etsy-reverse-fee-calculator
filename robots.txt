@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://etsy-reverse-fee.web.app/sitemap.xml
+Sitemap: https://etsy-reverse-fee.online/sitemap.xml
