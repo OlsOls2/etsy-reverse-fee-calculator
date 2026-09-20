@@ -22,6 +22,10 @@ const csvDownload = document.querySelector("#csv-download");
 const csvStatus = document.querySelector("#csv-status");
 let pricedCsv = "";
 
+function trackAnalytics(name, parameters = {}) {
+  window.dispatchEvent(new CustomEvent("reverseprice:analytics", { detail: { name, parameters } }));
+}
+
 const outputs = [...document.querySelectorAll("[data-output]")].reduce((map, element) => {
   const key = element.dataset.output;
   map[key] ??= [];
@@ -125,6 +129,7 @@ async function restorePro() {
     if (entitlement.pro) {
       localStorage.setItem(ENTITLEMENT_KEY, sessionId);
       activatePro();
+      if (returned) trackAnalytics("csv_pro_unlocked");
     } else if (returned) proNote.textContent = "Payment is not complete; CSV Pro remains locked.";
   } catch {
     localStorage.removeItem(ENTITLEMENT_KEY);
@@ -137,10 +142,12 @@ async function restorePro() {
 proCheckout.addEventListener("click", async () => {
   proCheckout.disabled = true;
   proNote.textContent = "Opening secure Stripe Checkout…";
+  trackAnalytics("begin_checkout", { currency: "GBP", value: 4, item_name: "CSV Pro lifetime unlock" });
   try {
     const { url } = await billing("/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
     const target = new URL(url);
     if (target.protocol !== "https:" || !target.hostname.endsWith(".stripe.com")) throw new Error("Checkout returned an invalid destination.");
+    trackAnalytics("checkout_redirected", { currency: "GBP", value: 4 });
     location.assign(target.toString());
   } catch (error) {
     proCheckout.disabled = false;

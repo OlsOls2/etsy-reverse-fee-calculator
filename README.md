@@ -36,6 +36,21 @@ For CI, use a Google service account with Firebase Hosting deployment access and
 provide its credentials through the CI platform's protected secret mechanism;
 no service-account key is required for normal local deployment.
 
+GitHub Actions runs tests and a production build only. Production is hosted on
+Firebase Hosting; this repository does not deploy to GitHub Pages.
+
+## Analytics and social sharing
+
+Production uses the dedicated GA4 property `properties/555128418` and web stream
+measurement ID `G-XECHZYT8G1` inside the existing shared Olly Google Analytics
+account. The Google tag is not requested until a visitor explicitly allows
+analytics. Calculator values, CSV contents and Stripe Checkout session IDs are
+not sent; Checkout return parameters are removed from the configured page URL.
+
+The 1200×630 Open Graph/Twitter image is `social-card.png`. Its deterministic
+text/layout source is `design/social-card.html`; the generated illustration
+source is `assets/social-artwork.png`.
+
 Set `SITE_URL=https://another-production-domain.example/` while building only
 when intentionally targeting a different production domain. `SITE_URL` rewrites
 the canonical URL, Open Graph URL, structured-data URL, robots sitemap URL and

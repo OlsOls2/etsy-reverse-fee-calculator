@@ -1,0 +1,33 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+const readText = (path) => readFile(new URL(path, import.meta.url), "utf8");
+
+test("publishes complete social metadata and consent-gated GA4", async () => {
+  const [html, analytics, build] = await Promise.all([
+    readText("../index.html"),
+    readText("../analytics.js"),
+    readText("../scripts/build.mjs"),
+  ]);
+
+  assert.match(html, /property="og:image" content="https:\/\/etsy-reverse-fee\.online\/social-card\.png"/);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /name="twitter:image" content="https:\/\/etsy-reverse-fee\.online\/social-card\.png"/);
+  assert.match(html, /<script src="\.\/analytics\.js" defer><\/script>/);
+  assert.match(build, /"analytics\.js"/);
+  assert.match(build, /"social-card\.png"/);
+  assert.match(analytics, /G-XECHZYT8G1/);
+  assert.match(analytics, /reverseprice\.analytics-consent\.v1/);
+  assert.match(analytics, /consent\(\) !== "granted"/);
+  assert.match(analytics, /url\.searchParams\.delete\("session_id"\)/);
+  assert.match(analytics, /allow_google_signals: false/);
+  assert.match(analytics, /allow_ad_personalization_signals: false/);
+});
+
+test("social card is a 1200 by 630 PNG", async () => {
+  const image = await readFile(new URL("../social-card.png", import.meta.url));
+  assert.deepEqual([...image.subarray(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
+  assert.equal(image.readUInt32BE(16), 1200);
+  assert.equal(image.readUInt32BE(20), 630);
+});

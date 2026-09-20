@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; }
+      body {
+        position: relative;
+        color: #173f35;
+        background: #f7f2e8 url("../assets/social-artwork.png") center / cover no-repeat;
+        font-family: "Ubuntu Sans", Inter, system-ui, sans-serif;
+      }
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(247, 242, 232, .99) 0%, rgba(247, 242, 232, .98) 35%, rgba(247, 242, 232, .80) 49%, rgba(247, 242, 232, 0) 70%);
+      }
+      main { position: relative; width: 610px; height: 100%; padding: 58px 0 46px 66px; display: flex; flex-direction: column; }
+      .brand { display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 800; letter-spacing: -.03em; }
+      .mark { width: 48px; height: 48px; display: grid; place-items: center; color: white; border-radius: 14px; background: #e85e30; font-size: 30px; }
+      .eyebrow { margin: 72px 0 15px; color: #c84620; font-size: 17px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      h1 { margin: 0; font-size: 68px; line-height: .94; letter-spacing: -.06em; font-weight: 850; }
+      h1 em { display: block; color: #e85e30; font-family: "DejaVu Serif", Georgia, serif; font-weight: 700; }
+      .lede { max-width: 510px; margin: 24px 0 0; color: #31594e; font-size: 23px; line-height: 1.3; font-weight: 600; }
+      .footer { margin-top: auto; display: flex; align-items: center; gap: 15px; font-size: 17px; font-weight: 750; }
+      .dot { width: 5px; height: 5px; border-radius: 50%; background: #e85e30; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand"><span class="mark">↗</span><span>ReversePrice</span></div>
+      <p class="eyebrow">Etsy seller pricing, reversed</p>
+      <h1>Profit target in.<em>Minimum price out.</em></h1>
+      <p class="lede">Find the list price that covers your costs, Etsy fees and the profit you need.</p>
+      <div class="footer"><span>Free calculator</span><span class="dot"></span><span>etsy-reverse-fee.online</span></div>
+    </main>
+  </body>
+</html>
