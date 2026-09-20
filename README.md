@@ -34,7 +34,7 @@ Official sources:
 
 ## Maths and rounding
 
-Each fee line is rounded to the nearest penny/cent. The reverse calculator uses an integer-cent binary search and returns the first list price whose resulting profit meets or exceeds the target. This also handles the Offsite Ads cap without relying on an inaccurate single linear formula.
+Each fee line is rounded to the nearest penny/cent. Because several fee lines can round up on the same cent, exact profit is not perfectly monotonic. The reverse calculator binary-searches a safe optimistic bound, then checks exact cent prices in order and returns the first list price whose resulting profit meets or exceeds the target. This also handles the Offsite Ads cap without relying on an inaccurate single linear formula.
 
 ## Scope
 

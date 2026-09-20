@@ -92,6 +92,37 @@ test("reverse calculator finds the minimum cent that still reaches target profit
   assert.ok(previous.profit < input.desiredProfit);
 });
 
+test("reverse calculator remains minimal across cent-rounding profit dips", () => {
+  const input = {
+    location: LOCATIONS.GB,
+    desiredProfit: 0.8,
+    productCost: 3.47,
+    shippingCharged: 2.83,
+    shippingCost: 2.19,
+    offsiteRate: 0,
+    feeTaxRate: 0.2,
+    listingFee: 0.15,
+    offsiteCap: 75
+  };
+  const result = findMinimumListPrice(input);
+  const previous = calculateBreakdown({ ...input, listPrice: result.listPrice - 0.01 });
+
+  assert.equal(result.listPrice, 5.09);
+  assert.equal(result.profit, 0.8);
+  assert.ok(previous.profit < input.desiredProfit);
+});
+
+test("reverse calculator rejects percentage settings that cannot be searched monotonically", () => {
+  assert.throws(
+    () => findMinimumListPrice({
+      location: LOCATIONS.US,
+      desiredProfit: 10,
+      offsiteRate: 1
+    }),
+    /Combined percentage fees must be less than 100%/
+  );
+});
+
 test("shipping revenue can cover the complete target and produce a zero list price", () => {
   const result = findMinimumListPrice({
     location: LOCATIONS.US,

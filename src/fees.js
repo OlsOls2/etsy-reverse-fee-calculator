@@ -91,35 +91,84 @@ export function calculateBreakdown(input) {
 
 export function findMinimumListPrice(input) {
   const desiredProfit = finiteNonNegative(input.desiredProfit, "Desired profit");
+  const location = input.location ?? LOCATIONS.GB;
+  const shippingCharged = finiteNonNegative(input.shippingCharged ?? 0, "Shipping charged");
+  const productCost = finiteNonNegative(input.productCost ?? 0, "Product cost");
+  const shippingCost = finiteNonNegative(input.shippingCost ?? 0, "Shipping cost");
+  const offsiteRate = finiteNonNegative(input.offsiteRate ?? 0, "Offsite Ads rate");
+  const feeTaxRate = finiteNonNegative(input.feeTaxRate ?? location.feeTaxRate, "Fee tax rate");
+  const listingFee = roundMoney(finiteNonNegative(input.listingFee ?? location.listingFee, "Listing fee"));
+  const offsiteCap = finiteNonNegative(input.offsiteCap ?? location.offsiteCap, "Offsite Ads cap");
+  const totalCosts = roundMoney(productCost + shippingCost);
+  const effectivePercentageRate = (
+    location.transactionRate
+    + location.paymentRate
+    + location.regulatoryRate
+    + offsiteRate
+  ) * (1 + feeTaxRate);
+
+  if (effectivePercentageRate >= 1) {
+    throw new RangeError("Combined percentage fees must be less than 100%");
+  }
+
   const atPrice = (priceInCents) => calculateBreakdown({
     ...input,
     listPrice: priceInCents / 100
   });
 
-  if (atPrice(0).profit >= desiredProfit) {
-    return atPrice(0);
-  }
+  // Individually rounded fee lines can make exact profit dip briefly as price
+  // rises, so exact profit is not a safe binary-search predicate. This upper
+  // bound allows up to half a cent of downward rounding on each percentage
+  // fee and on fee tax, plus half a cent on final profit. It is monotonic for
+  // supported rates and cannot exclude a price that really meets the target.
+  const optimisticProfit = (priceInCents) => {
+    const orderTotal = roundMoney(priceInCents / 100 + shippingCharged);
+    const unroundedFeesBeforeTax = listingFee
+      + orderTotal * location.transactionRate
+      + orderTotal * location.paymentRate + location.paymentFixed
+      + orderTotal * location.regulatoryRate
+      + Math.min(orderTotal * offsiteRate, offsiteCap);
+    const feeRoundingAllowance = 4 * 0.005;
+    const feesBeforeTaxLowerBound = unroundedFeesBeforeTax - feeRoundingAllowance;
+    const totalFeesLowerBound = Math.max(
+      0,
+      feesBeforeTaxLowerBound * (1 + feeTaxRate) - 0.005
+    );
+
+    return orderTotal - totalCosts - totalFeesLowerBound + 0.005;
+  };
 
   let low = 0;
   let high = 100;
   const maximumCents = 100_000_000;
 
-  while (atPrice(high).profit < desiredProfit) {
-    low = high + 1;
-    high *= 2;
-    if (high > maximumCents) {
+  if (optimisticProfit(0) >= desiredProfit) {
+    high = 0;
+  }
+
+  while (optimisticProfit(high) < desiredProfit) {
+    if (high === maximumCents) {
       throw new RangeError("A price could not be calculated with these fee settings");
     }
+    low = high + 1;
+    high = Math.min(high * 2, maximumCents);
   }
 
   while (low < high) {
     const middle = Math.floor((low + high) / 2);
-    if (atPrice(middle).profit >= desiredProfit) {
+    if (optimisticProfit(middle) >= desiredProfit) {
       high = middle;
     } else {
       low = middle + 1;
     }
   }
 
-  return atPrice(low);
+  for (let priceInCents = low; priceInCents <= maximumCents; priceInCents += 1) {
+    const result = atPrice(priceInCents);
+    if (result.profit >= desiredProfit) {
+      return result;
+    }
+  }
+
+  throw new RangeError("A price could not be calculated with these fee settings");
 }
