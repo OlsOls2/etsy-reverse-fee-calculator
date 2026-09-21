@@ -49,7 +49,8 @@ test("publishes legal pages, footer links and a pre-purchase CSV sample", async 
   assert.match(privacy, /CSV files never leave/);
   assert.match(privacy, /Google Analytics 4/);
   assert.match(privacy, /mailto:support@json-translate\.com/);
-  assert.doesNotMatch(`${terms}${privacy}`, /CONTACT_EMAIL|support@mizzen-studios\.com/);
+  assert.doesNotMatch(`${terms}\n${privacy}`, /CONTACT_EMAIL/);
+  assert.doesNotMatch(`${terms}${privacy}`, /support@mizzen-studios\.com/);
   for (const page of [html, terms, privacy]) {
     assert.match(page, /href="\/terms\/"/);
     assert.match(page, /href="\/privacy\/"/);
