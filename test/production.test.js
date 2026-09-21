@@ -15,7 +15,9 @@ test("publishes complete social metadata and consent-gated GA4", async () => {
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /name="twitter:image" content="https:\/\/etsy-reverse-fee\.online\/social-card\.png"/);
   assert.match(html, /<script src="\.\/analytics\.js" defer><\/script>/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml">/);
   assert.match(build, /"analytics\.js"/);
+  assert.match(build, /"favicon\.svg"/);
   assert.match(build, /"social-card\.png"/);
   assert.match(analytics, /G-XECHZYT8G1/);
   assert.match(analytics, /reverseprice\.analytics-consent\.v1/);
@@ -42,11 +44,12 @@ test("publishes legal pages, footer links and a pre-purchase CSV sample", async 
   assert.match(html, /Download sample CSV/);
   assert.match(sample, /sku,desired_profit,product_cost,shipping_charged,shipping_cost/);
   assert.match(terms, /Mizzen Studios/);
-  assert.match(terms, /CONTACT_EMAIL/);
+  assert.match(terms, /mailto:support@json-translate\.com/);
   assert.match(privacy, /localStorage/);
   assert.match(privacy, /CSV files never leave/);
   assert.match(privacy, /Google Analytics 4/);
-  assert.match(privacy, /CONTACT_EMAIL/);
+  assert.match(privacy, /mailto:support@json-translate\.com/);
+  assert.doesNotMatch(`${terms}${privacy}`, /CONTACT_EMAIL|support@mizzen-studios\.com/);
   for (const page of [html, terms, privacy]) {
     assert.match(page, /href="\/terms\/"/);
     assert.match(page, /href="\/privacy\/"/);

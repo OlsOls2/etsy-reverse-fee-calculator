@@ -3,6 +3,14 @@
   const consentKey = "reverseprice.analytics-consent.v1";
   let loaded = false;
 
+  if (!document.querySelector('link[rel~="icon"]')) {
+    const favicon = document.createElement("link");
+    favicon.rel = "icon";
+    favicon.type = "image/svg+xml";
+    favicon.href = "/favicon.svg";
+    document.head.append(favicon);
+  }
+
   function consent() {
     try {
       const value = localStorage.getItem(consentKey);

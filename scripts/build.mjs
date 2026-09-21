@@ -12,7 +12,7 @@ if (!URL.canParse(siteUrl) || !siteUrl.startsWith("https://")) {
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 
-for (const entry of ["index.html", "styles.css", "analytics.js", "social-card.png", "robots.txt", "sitemap.xml", "404.html", "legal.css", "sample-listings.csv"]) {
+for (const entry of ["index.html", "styles.css", "analytics.js", "favicon.svg", "social-card.png", "robots.txt", "sitemap.xml", "404.html", "legal.css", "sample-listings.csv"]) {
   await cp(new URL(`../${entry}`, import.meta.url), new URL(entry, output));
 }
 for (const entry of ["terms", "privacy"]) {
