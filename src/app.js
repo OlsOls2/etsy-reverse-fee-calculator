@@ -142,7 +142,7 @@ async function restorePro() {
 proCheckout.addEventListener("click", async () => {
   proCheckout.disabled = true;
   proNote.textContent = "Opening secure Stripe Checkout…";
-  trackAnalytics("begin_checkout", { currency: "GBP", value: 4, item_name: "CSV Pro lifetime unlock" });
+  trackAnalytics("begin_checkout", { currency: "GBP", value: 4, item_name: "Etsy Reverse Fee — CSV Pro" });
   try {
     const { url } = await billing("/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
     const target = new URL(url);

@@ -1,0 +1,4 @@
+sku,desired_profit,product_cost,shipping_charged,shipping_cost,location,current_price,offsite_rate
+CERAMIC-MUG,10,6,3.50,3.20,GB,22,0
+LINEN-TOTE,8,5,3.50,2.80,GB,21,0
+ART-PRINT,12,4,0,3.20,GB,25,0.15

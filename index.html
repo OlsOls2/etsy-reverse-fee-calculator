@@ -225,6 +225,15 @@
           <h2 id="pro-title">Price a whole shop, not one listing.</h2>
           <p>Upload a CSV of SKUs and get required list prices plus a margin audit. Your file stays in this browser; Stripe handles the £4 payment.</p>
         </div>
+        <div class="csv-demo" aria-labelledby="csv-demo-title">
+          <div>
+            <span class="pro-badge">Free sample</span>
+            <h3 id="csv-demo-title">See the batch output before you pay</h3>
+            <p>These demo rows use the same local pricing engine as CSV Pro. Download the input file and inspect the required columns first.</p>
+            <a class="demo-download" href="/sample-listings.csv" download>Download sample CSV</a>
+          </div>
+          <div class="demo-table-wrap"><table><thead><tr><th>SKU</th><th>Target profit</th><th>Current</th><th>Minimum</th><th>Audit</th></tr></thead><tbody><tr><td>CERAMIC-MUG</td><td>£10.00</td><td>£22.00</td><td>£19.10</td><td>Target met</td></tr><tr><td>ART-PRINT</td><td>£12.00</td><td>£25.00</td><td>£28.50</td><td>Raise price</td></tr></tbody></table></div>
+        </div>
         <button id="pro-checkout" type="button" aria-describedby="pro-note">Unlock CSV Pro · £4</button>
         <small id="pro-note" role="status">Secure one-time payment · no account</small>
         <div id="pro-workspace" class="pro-workspace" hidden>
@@ -252,6 +261,8 @@
       <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">↗</span><span>ReversePrice</span></a>
       <p>Independent calculator. Not affiliated with or endorsed by Etsy, Inc.</p>
       <button id="analytics-settings" type="button">Analytics settings</button>
+      <a href="/terms/">Terms</a>
+      <a href="/privacy/">Privacy</a>
       <a href="https://github.com/OlsOls2/etsy-reverse-fee-calculator">View source</a>
     </footer>
   </body>

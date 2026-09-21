@@ -3,7 +3,7 @@ const Stripe = require("stripe");
 
 const APP_ID = "mm-etsy-reverse-fee";
 const APPROVED_ACCOUNT_ID = "acct_1RWiEYDBB6JJzhj6";
-const PRICE_ID = "price_1UHn3pDBB6JJzhj6rytiY2aM";
+const PRICE_ID = "price_1UI33sDBB6JJzhj63kTs5xhg";
 const ORIGIN = "https://etsy-reverse-fee.online";
 const ALLOWED_ORIGINS = new Set([ORIGIN, "https://www.etsy-reverse-fee.online", "https://etsy-reverse-fee.web.app"]);
 const app = express();
@@ -22,7 +22,7 @@ async function stripeClient() {
   if (!verifiedStripe) {
     verifiedStripe = (async () => {
       const stripe = new Stripe(process.env.ETSYRF_STRIPE_SECRET_KEY_LIVE);
-      const account = await stripe.accounts.retrieve();
+      const account = await stripe.accounts.retrieveCurrent();
       if (account.id !== APPROVED_ACCOUNT_ID) {
         throw new Error("Stripe account identity is not approved for Mizzen Studios.");
       }
@@ -71,6 +71,12 @@ app.post("/checkout", async (_request, response) => {
       allow_promotion_codes: true,
       billing_address_collection: "auto",
       customer_creation: "always",
+      custom_text: { submit: { message: "Etsy Reverse Fee CSV Pro is provided by Mizzen Studios. Your CSV stays on your device." } },
+      payment_intent_data: {
+        description: "Etsy Reverse Fee — CSV Pro lifetime unlock",
+        statement_descriptor_suffix: "REVERSE FEE",
+        metadata: { app: APP_ID, entitlement: "csv-pro", environment: "live" }
+      },
       metadata: { app: APP_ID, entitlement: "csv-pro", environment: "live" }
     });
     if (!session.url) return response.status(502).json({ error: "Stripe did not return a checkout URL." });

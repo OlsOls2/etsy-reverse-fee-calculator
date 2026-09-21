@@ -88,6 +88,15 @@ Each fee line is rounded to the nearest penny/cent. Because several fee lines ca
 
 The static frontend sends only Checkout and entitlement requests to the billing service. CSV content is parsed and priced locally in the browser and is never uploaded. The production billing service verifies the fixed Mizzen Studios Stripe account before creating or retrieving a session.
 
+The public legal pages are `/terms/` and `/privacy/`. `CONTACT_EMAIL` is deliberately visible as a placeholder until Mizzen Studios confirms the product support address; replace it in both pages before treating email contact as configured.
+
+Stripe catalog ownership for CSV Pro:
+
+- Product: `prod_VIeMGvDv1mq6j3` — `Etsy Reverse Fee — CSV Pro`
+- Price: `price_1UI33sDBB6JJzhj63kTs5xhg` — £4 one-time
+- Lookup key: `mm-etsy-reverse-fee-csv-pro-gbp-v2`
+- Statement text: product `ETSY REVERSE FEE`; card suffix `REVERSE FEE`
+
 ## License
 
 MIT

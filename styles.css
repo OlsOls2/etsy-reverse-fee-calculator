@@ -160,6 +160,14 @@ td:first-child { font-weight: 760; }
 .pro-card button { padding: 1rem 1.25rem; color: var(--ink); border: 0; border-radius: 999px; background: white; font-weight: 850; cursor: pointer; }
 .pro-card button:disabled { cursor: wait; opacity: .72; }
 .pro-card small { grid-column: 2; margin-top: .5rem; color: #ffe7dc; text-align: center; }
+.csv-demo { grid-column: 1 / -1; margin: 1.5rem 0 .5rem; padding: 1.4rem; display: grid; grid-template-columns: minmax(230px, .7fr) minmax(0, 1.3fr); gap: 1.2rem; color: var(--ink); border-radius: 16px; background: var(--paper); }
+.csv-demo h3 { margin: .75rem 0 .35rem; font-size: 1.25rem; }
+.csv-demo p { margin: 0 0 1rem; color: var(--ink-soft); font-size: .78rem; }
+.csv-demo .pro-badge { color: var(--orange-dark); border-color: rgba(232,94,48,.35); }
+.demo-download { display: inline-flex; padding: .7rem .9rem; border-radius: 999px; color: white; background: var(--ink); font-size: .78rem; font-weight: 850; text-decoration: none; }
+.demo-table-wrap { overflow-x: auto; }
+.csv-demo table { box-shadow: none; }
+.csv-demo th, .csv-demo td { min-width: 88px; padding: .7rem; font-size: .7rem; }
 .pro-workspace { grid-column: 1 / -1; margin-top: 2rem; padding: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 1rem; align-items: center; color: var(--ink); border-radius: 16px; background: var(--paper); }
 .pro-workspace[hidden] { display: none; }
 .pro-workspace h3 { margin: 0 0 .35rem; }
@@ -198,6 +206,7 @@ footer a:last-child { font-weight: 800; }
   .pro-card button { justify-self: start; }
   .pro-card small { grid-column: 1; text-align: left; }
   .pro-workspace { grid-template-columns: 1fr; }
+  .csv-demo { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {

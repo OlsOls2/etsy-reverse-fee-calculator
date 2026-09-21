@@ -31,3 +31,28 @@ test("social card is a 1200 by 630 PNG", async () => {
   assert.equal(image.readUInt32BE(16), 1200);
   assert.equal(image.readUInt32BE(20), 630);
 });
+
+test("publishes legal pages, footer links and a pre-purchase CSV sample", async () => {
+  const [html, terms, privacy, sample, build, server] = await Promise.all([
+    readText("../index.html"), readText("../terms/index.html"), readText("../privacy/index.html"),
+    readText("../sample-listings.csv"), readText("../scripts/build.mjs"), readText("../functions/server.js"),
+  ]);
+  assert.match(html, /href="\/terms\/"/);
+  assert.match(html, /href="\/privacy\/"/);
+  assert.match(html, /Download sample CSV/);
+  assert.match(sample, /sku,desired_profit,product_cost,shipping_charged,shipping_cost/);
+  assert.match(terms, /Mizzen Studios/);
+  assert.match(terms, /CONTACT_EMAIL/);
+  assert.match(privacy, /localStorage/);
+  assert.match(privacy, /CSV files never leave/);
+  assert.match(privacy, /Google Analytics 4/);
+  assert.match(privacy, /CONTACT_EMAIL/);
+  for (const page of [html, terms, privacy]) {
+    assert.match(page, /href="\/terms\/"/);
+    assert.match(page, /href="\/privacy\/"/);
+  }
+  assert.match(build, /"terms"/);
+  assert.match(server, /statement_descriptor_suffix: "REVERSE FEE"/);
+  assert.match(server, /price_1UI33sDBB6JJzhj63kTs5xhg/);
+  assert.match(server, /Etsy Reverse Fee — CSV Pro lifetime unlock/);
+});
