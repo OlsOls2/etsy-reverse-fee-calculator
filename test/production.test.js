@@ -14,6 +14,7 @@ test("publishes complete social metadata and consent-gated GA4", async () => {
   assert.match(html, /property="og:image" content="https:\/\/takehomefees\.online\/social-card\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.match(html, /name="twitter:image" content="https:\/\/takehomefees\.online\/social-card\.png"/);
+  assert.match(html, /name="google-site-verification" content="Rv1uOlKsGHsz8a0Juer-KgytyecabwiisLDs2hSkFnw"/);
   assert.match(html, /<script src="\.\/analytics\.js" defer><\/script>/);
   assert.match(html, /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml">/);
   assert.match(build, /"analytics\.js"/);
