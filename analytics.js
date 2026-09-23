@@ -77,7 +77,7 @@
     const banner = document.createElement("aside");
     banner.dataset.analyticsConsent = "";
     banner.setAttribute("aria-label", "Analytics preferences");
-    banner.innerHTML = '<div><strong>Help improve ReversePrice</strong><span>Allow privacy-friendly Google Analytics so Mizzen Studios can see which pages and features help. Calculator values, CSV contents and Stripe session IDs are never sent.</span></div><div><button type="button" data-consent="denied">No thanks</button><button type="button" data-consent="granted">Allow analytics</button></div>';
+    banner.innerHTML = '<div><strong>Help improve Take Home Fees</strong><span>Allow privacy-friendly Google Analytics so Mizzen Studios can see which pages and features help. Calculator values, CSV contents and Stripe session IDs are never sent.</span></div><div><button type="button" data-consent="denied">No thanks</button><button type="button" data-consent="granted">Allow analytics</button></div>';
     banner.addEventListener("click", (event) => {
       const button = event.target instanceof Element ? event.target.closest("[data-consent]") : null;
       if (button) saveConsent(button.getAttribute("data-consent"));

@@ -1,7 +1,7 @@
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 
 const output = new URL("../dist/", import.meta.url);
-const defaultSiteUrl = "https://etsy-reverse-fee.online/";
+const defaultSiteUrl = "https://takehomefees.online/";
 const defaultBillingApi = "https://etsy-reverse-fee-billing-936568909385.europe-west2.run.app";
 const siteUrl = (process.env.SITE_URL ?? defaultSiteUrl).replace(/\/?$/, "/");
 

@@ -4,8 +4,14 @@ const Stripe = require("stripe");
 const APP_ID = "mm-etsy-reverse-fee";
 const APPROVED_ACCOUNT_ID = "acct_1RWiEYDBB6JJzhj6";
 const PRICE_ID = "price_1UI33sDBB6JJzhj63kTs5xhg";
-const ORIGIN = "https://etsy-reverse-fee.online";
-const ALLOWED_ORIGINS = new Set([ORIGIN, "https://www.etsy-reverse-fee.online", "https://etsy-reverse-fee.web.app"]);
+const ORIGIN = "https://takehomefees.online";
+const ALLOWED_ORIGINS = new Set([
+  ORIGIN,
+  "https://www.takehomefees.online",
+  "https://etsy-reverse-fee.online",
+  "https://www.etsy-reverse-fee.online",
+  "https://etsy-reverse-fee.web.app",
+]);
 const app = express();
 let verifiedStripe;
 

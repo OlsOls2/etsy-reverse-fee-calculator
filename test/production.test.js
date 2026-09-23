@@ -11,14 +11,15 @@ test("publishes complete social metadata and consent-gated GA4", async () => {
     readText("../scripts/build.mjs"),
   ]);
 
-  assert.match(html, /property="og:image" content="https:\/\/etsy-reverse-fee\.online\/social-card\.png"/);
+  assert.match(html, /property="og:image" content="https:\/\/takehomefees\.online\/social-card\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
-  assert.match(html, /name="twitter:image" content="https:\/\/etsy-reverse-fee\.online\/social-card\.png"/);
+  assert.match(html, /name="twitter:image" content="https:\/\/takehomefees\.online\/social-card\.png"/);
   assert.match(html, /<script src="\.\/analytics\.js" defer><\/script>/);
   assert.match(html, /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml">/);
   assert.match(build, /"analytics\.js"/);
   assert.match(build, /"favicon\.svg"/);
   assert.match(build, /"social-card\.png"/);
+  assert.match(build, /https:\/\/takehomefees\.online\//);
   assert.match(analytics, /G-XECHZYT8G1/);
   assert.match(analytics, /reverseprice\.analytics-consent\.v1/);
   assert.match(analytics, /consent\(\) !== "granted"/);
@@ -59,4 +60,5 @@ test("publishes legal pages, footer links and a pre-purchase CSV sample", async 
   assert.match(server, /statement_descriptor_suffix: "REVERSE FEE"/);
   assert.match(server, /price_1UI33sDBB6JJzhj63kTs5xhg/);
   assert.match(server, /Etsy Reverse Fee — CSV Pro lifetime unlock/);
+  assert.match(server, /const ORIGIN = "https:\/\/takehomefees\.online"/);
 });

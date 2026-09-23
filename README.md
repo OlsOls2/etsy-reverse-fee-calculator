@@ -1,4 +1,4 @@
-# Etsy Reverse Fee Calculator
+# Take Home Fees
 
 A calculator that works backwards from desired profit to the minimum Etsy list price. It includes product costs, shipping charged versus shipping paid, Offsite Ads and a visible fee breakdown. The £4 CSV Pro unlock batch-prices local files after server-side Stripe entitlement verification.
 
@@ -17,7 +17,8 @@ Then open <http://localhost:4173>.
 Production hosting:
 
 - Firebase/GCP project ID: `etsy-reverse-fee`
-- Canonical URL: <https://etsy-reverse-fee.online/>
+- Canonical URL: <https://takehomefees.online/>
+- Legacy redirect-only URL: <https://etsy-reverse-fee.online/> (301 to the canonical host, preserving the path)
 - Firebase fallback URL: <https://etsy-reverse-fee.web.app/>
 - Build output directory: `dist`
 

@@ -4,4 +4,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://etsy-reverse-fee.online/sitemap.xml
+Sitemap: https://takehomefees.online/sitemap.xml
