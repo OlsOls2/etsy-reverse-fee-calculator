@@ -18,7 +18,7 @@ Production hosting:
 
 - Firebase/GCP project ID: `etsy-reverse-fee`
 - Canonical URL: <https://takehomefees.online/>
-- Legacy redirect-only URL: <https://etsy-reverse-fee.online/> (301 to the canonical host, preserving the path)
+- Planned legacy redirect-only URL: <https://etsy-reverse-fee.online/> (enable its 301 after the canonical host is active)
 - Firebase fallback URL: <https://etsy-reverse-fee.web.app/>
 - Build output directory: `dist`
 
